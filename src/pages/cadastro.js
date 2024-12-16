@@ -10,7 +10,7 @@ function Cadastro() {
 		setor: "",
 		funcao: "",
 	});
-
+  
 	const handleChange = (e) => {
 		const { id, value } = e.target;
 		setForm({ ...form, [id]: value });
