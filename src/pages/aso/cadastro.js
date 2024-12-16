@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { validacaoDetamanho, validarCNPJ, validarIdade } from "./riscos/cadastro";
+import { validacaoDetamanho, validarCNPJ, validarIdade } from "@/utils";
 
 function Cadastro() {
 	const [form, setForm] = useState({
@@ -23,12 +23,12 @@ function Cadastro() {
 		console.log("Informações Salvas:", form);
 		alert("Informações salvas com sucesso!");
 
-fetch('/api/funcionarios/novo', {
+fetch('/api/aso/cadastro', {
 	method: 'POST', // Método da requisição
 	headers: {
 	  'Content-Type': 'application/json' // Tipo de conteúdo
 	},
-	body: JSON.stringify(dados) // Dados enviados no corpo da requisição
+	body: JSON.stringify(form) // Dados enviados no corpo da requisição
   })
 	.then(response => {
 	  if (!response.ok) {
