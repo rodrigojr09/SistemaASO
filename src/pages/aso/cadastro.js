@@ -1,51 +1,55 @@
 import React, { useState } from "react";
 import { validacaoDetamanho, validarCNPJ, validarIdade } from "@/utils";
+import { useRouter } from "next/router";
 
 function Cadastro() {
-	const [form, setForm] = useState({
-		cpf: "",
-		nome: "",
-		dataNascimento: "",
-		empresa: "",
-		cnpj: "",
-		setor: "",
-		funcao: "",
-	});
-	validacaoDetamanho
-	validarCNPJ
-	validarIdade
+	const router = useRouter();
+	const [form, setForm] = useState({});
+	validacaoDetamanho;
+	validarCNPJ;
+	validarIdade;
 	const handleChange = (e) => {
 		const { id, value } = e.target;
 		setForm({ ...form, [id]: value });
 	};
-
 	const handleSave = () => {
 		console.log("Informações Salvas:", form);
-		alert("Informações salvas com sucesso!");
+		fetch("http://192.168.3.32:3001/aso/create", {
+			method: "POST", // Método da requisição
+			headers: {
+				"Content-Type": "application/json", // Tipo de conteúdo
+			},
+			body: JSON.stringify({
+				funcionario: {
+					nome: form.nome,
+					nascimento: form.dataNascimento,
+					cpf: form.cpf,
+				},
+				empresa: {
+					nome: form.nome,
+					cnpj: form.cnpj,
+				},
+				funcao: form.funcao,
+				setor: form.setor,
+			}), // Dados enviados no corpo da requisição
+		})
+			.then(async (response) => {
+				if (!response.ok) throw await response.text();
 
-fetch('/api/aso/cadastro', {
-	method: 'POST', // Método da requisição
-	headers: {
-	  'Content-Type': 'application/json' // Tipo de conteúdo
-	},
-	body: JSON.stringify(form) // Dados enviados no corpo da requisição
-  })
-	.then(response => {
-	  if (!response.ok) {
-		alert(response.statusText);
-	  }
-	  return response.json(); // Converte a resposta para JSON
-	})
-	.then(data => {
-	  console.log('Resposta da API:', data);
-	})
-	.catch(error => {
-	  console.error('Erro:', error);
-	});
+				return response.json();
+			})
+			.then(() => {
+				return navigateTo("/aso/riscos/cadastro");
+			})
+			.catch((error) => {
+				console.error("Erro:", error);
+				alert(error);
+			});
 	};
 
 	const navigateTo = (section) => {
 		console.log(`Navegando para: ${section}`);
+		router.push(section);
 	};
 
 	return (
@@ -57,7 +61,7 @@ fetch('/api/aso/cadastro', {
 						<button
 							className="w-full text-left font-semibold"
 							id="info-basicas-btn"
-							onClick={() => navigateTo("info-basicas")}
+							disabled
 						>
 							1. Informações Básicas
 						</button>

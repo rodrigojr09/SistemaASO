@@ -1,0 +1,55 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
+	// Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
+
+	// List of extensions which should be recommended for users of this workspace.
+	"recommendations": [
+		"1devestacion1.dotnet-build-by-context",
+		"abusaidm.html-snippets",
+		"amodio.tsl-problem-matcher",
+		"bradlc.vscode-tailwindcss",
+		"christian-kohler.npm-intellisense",
+		"christian-kohler.path-intellisense",
+		"connor4312.esbuild-problem-matchers",
+		"dbaeumer.vscode-eslint",
+		"dracula-theme.theme-dracula",
+		"ecmel.vscode-html-css",
+		"equinusocio.vsc-material-theme-icons",
+		"esbenp.prettier-vscode",
+		"github.vscode-github-actions",
+		"ijs.reactnextjssnippets",
+		"johannesvoderholzer.codex-model-integration",
+		"leizongmin.node-module-intellisense",
+		"ms-ceintl.vscode-language-pack-pt-br",
+		"ms-dotnettools.csdevkit",
+		"ms-dotnettools.csharp",
+		"ms-dotnettools.vscode-dotnet-runtime",
+		"ms-python.autopep8",
+		"ms-python.debugpy",
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"ms-vscode.extension-test-runner",
+		"ms-vscode.js-debug-nightly",
+		"ms-vscode.live-server",
+		"ms-vscode.vscode-typescript-next",
+		"ms-vsliveshare.vsliveshare",
+		"prisma.prisma",
+		"prisma.prisma-insider",
+		"redhat.vscode-xml",
+		"ritwickdey.liveserver",
+		"sidthesloth.html5-boilerplate",
+		"steoates.autoimport",
+		"sumneko.lua",
+		"visualstudioexptteam.intellicode-api-usage-examples",
+		"visualstudioexptteam.vscodeintellicode",
+		"visualstudioexptteam.vscodeintellicode-completions",
+		"visualstudioexptteam.vscodeintellicode-insiders",
+		"yinfei.luahelper",
+		"yzhang.markdown-all-in-one",
+		"zignd.html-css-class-completion"
+	],
+	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
+	"unwantedRecommendations": [
+		
+	]
+}
