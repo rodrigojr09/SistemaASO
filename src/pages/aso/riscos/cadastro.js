@@ -1,8 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { getRiscos } from "@/utils";
 
 function Cadastro() {
-	const handleSave = () => {};
+	const handleSave = async () => {
+		const res = await fetch("http://192.168.3.32:3001/aso/update/riscos", {
+			method: "POST",
+			body: JSON.stringify({ riscos: selecionados }),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		if (res.ok) {
+			const data = await res.json();
+			location.href = "/aso/riscos/exames/cadastro";
+		} else {
+			alert(
+				"Erro ao enviar informações ao servidor!\n" + (await res.text())
+			);
+		}
+	};
+	const router = useRouter();
+	useEffect(() => {
+		async function starting() {
+			const res = await fetch("http://192.168.3.32:3001/aso/get", {
+				method: "GET",
+			});
+
+			if (res.ok) {
+				const data = await res.json();
+				if (data) {
+					setSelecionados(data.riscos);
+				}
+			}
+		}
+
+		starting();
+	}, [router.asPath]);
 
 	const [search, setSearch] = useState("");
 	const [riscos] = useState(getRiscos());
@@ -75,7 +109,7 @@ function Cadastro() {
 					)}
 				</div>
 			</div>
-			<div className="w-[40%] h-min bg-black/70 rounded-lg ml-4 p-4 shadow-lg">
+			<div className="w-[30%] h-min bg-black/70 rounded-lg ml-4 p-2 shadow-lg">
 				{selecionados.map((risco, index) => (
 					<button
 						key={index}
@@ -97,7 +131,7 @@ function Cadastro() {
 				)}
 				<div className="text-center">
 					<button
-						className="rounded-lg bg-blue-500  px-6 py-3 font-bold text-white hover:scale-110 focus:outline-none"
+						className="rounded-lg bg-blue-500  px-4 py-2 my-2 font-bold text-white hover:scale-110 focus:outline-none"
 						onClick={handleSave} //azul fica melhor po (:
 					>
 						Salvar Informações

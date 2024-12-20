@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { validacaoDetamanho, validarCNPJ, validarIdade } from "@/utils";
 import { useRouter } from "next/router";
 
@@ -12,6 +12,32 @@ function Cadastro() {
 		const { id, value } = e.target;
 		setForm({ ...form, [id]: value });
 	};
+
+	useEffect(() => {
+		async function starting() {
+			const res = await fetch("http://192.168.3.32:3001/aso/get", {
+				method: "GET",
+			});
+
+			if (res.ok) {
+				const data = await res.json();
+				if (data) {
+					setForm({
+						nome: data.funcionario.nome,
+						dataNascimento: data.funcionario.nascimento,
+						cpf: data.funcionario.cpf,
+						empresa: data.empresa.nome,
+						cnpj: data.empresa.cnpj,
+						funcao: data.funcao,
+						setor: data.setor,
+					});
+				}
+			}
+		}
+
+		starting();
+	}, [router.asPath]);
+
 	const handleSave = () => {
 		console.log("Informações Salvas:", form);
 		fetch("http://192.168.3.32:3001/aso/create", {
@@ -26,7 +52,7 @@ function Cadastro() {
 					cpf: form.cpf,
 				},
 				empresa: {
-					nome: form.nome,
+					nome: form.empresa,
 					cnpj: form.cnpj,
 				},
 				funcao: form.funcao,
@@ -53,7 +79,7 @@ function Cadastro() {
 	};
 
 	return (
-		<div className="w-full h-full flex ml-64 items-center justify-center">
+		<div className="w-full h-full flex items-center justify-center">
 			<div className="w-full max-w-xl my-10 rounded-lg bg-black/70 p-8 shadow-lg">
 				<h1 className="mb-8 text-center text-3xl font-bold text-white">
 					Cadastro de Funcionário
